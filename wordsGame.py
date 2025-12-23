@@ -2,6 +2,7 @@ import random
 import re
 import json
 import os
+import sys
 from typing import List, Tuple, Optional
 
 # ANSI color codes
@@ -27,7 +28,7 @@ class TextMatchingGame:
         }
         self.level_names = {
             1: "Basic",
-            2: "Medium",
+            2: "Intermediate",
             3: "Advanced"
         }
         # Load previous progress if available
@@ -387,7 +388,7 @@ class TextMatchingGame:
         print(f"Total lines to complete: {len(self.lines)}")
         print("Game rules:")
         print("- Level Basic: 20% of words hidden")
-        print("- Level Medium: 40% of words hidden")
+        print("- Level Intermediate: 40% of words hidden")
         print("- Level Advanced: 70% of words hidden")
         print("- Complete all lines at each level to progress!")
         print("=" * 60)
@@ -420,8 +421,10 @@ class TextMatchingGame:
                 print(f"\nPuzzle: {puzzle}")
                 print(f"Reference: {reference}")
                 prompt = f"\n{Colors.CYAN}Enter the complete text or just the missing words (or 'quit' to exit, 'skip' to skip this line): {Colors.YELLOW}"
+                sys.stdout.flush()  # Flush stdout before input to fix Git Bash hanging issue
                 user_answer = input(prompt).strip()
                 print(Colors.RESET, end='')  # Reset color after input
+                sys.stdout.flush()  # Flush after input as well
                 
                 if user_answer.lower() == 'quit':
                     print("\nThanks for playing!")
@@ -435,9 +438,9 @@ class TextMatchingGame:
                 print(f"{Colors.YELLOW}Your answer: {user_answer}{Colors.RESET}")
                 
                 if self.check_answer(user_answer, puzzle_text, text):
-                    print(f"\n{Colors.GREEN}✓ Correct! Well done!{Colors.RESET}")
+                    print(f"\n{Colors.GREEN}✓ ✅ Correct! Well done! 🎉{Colors.RESET}")
                     self.completed_lines[self.current_level].add((reference, text))
-                    print(f"Progress at Level {self.level_names[self.current_level]}: {len(self.completed_lines[self.current_level])}/{len(self.lines)} lines completed")
+                    print(f"{Colors.GREEN}📊 Progress at Level {self.level_names[self.current_level]}: {len(self.completed_lines[self.current_level])}/{len(self.lines)} lines completed ✨{Colors.RESET}")
                     self.save_progress()  # Save progress after completing a line
                     break
                 else:

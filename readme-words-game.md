@@ -83,3 +83,21 @@ The game maintains a list of these tuples: `List[Tuple[str, str]]`
 - The full text must match exactly (except for normalization during comparison)
 - Progress is tracked per `(reference, text)` combination
 
+## Q: What punctuation is ignored when comparing answers?
+
+**A:** All punctuation is ignored during answer comparison. The game uses a normalization function that removes all characters that are not word characters (letters, digits, underscore) or whitespace. This includes:
+
+- Commas (`,`)
+- Periods (`.`)
+- Ellipsis (`...`)
+- Single quotes (`'`)
+- Double quotes (`"`)
+- Hyphens (`-`)
+- And any other punctuation marks
+
+**Examples:**
+- `"Hello, world."` normalizes to `"hello world"`
+- `"Don't say "no"."` normalizes to `"dont say no"`
+- `"Wait..."` normalizes to `"wait"`
+
+This makes the matching case-insensitive and punctuation-agnostic, so users don't need to match punctuation exactly when providing their answers. The comparison is done on the normalized (lowercase, punctuation-removed) versions of both the user's answer and the correct text.
