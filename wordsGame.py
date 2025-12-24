@@ -33,10 +33,11 @@ class TextMatchingGame:
             3: "Advanced",
             4: "Royal Priesthood"
         }
-        # For level 1, track which test (words or reference) has been completed for each verse
-        self.level1_tests_completed = {}  # {(reference, text): set(['words', 'reference'])}
-        # For level 4, track text test completion
-        self.level4_tests_completed = {}  # {(reference, text): set(['text'])}
+        # Track which tests have been completed for each verse at each level
+        # Structure: {level: {(reference, text): set(['words', 'reference', 'text'])}}
+        # Levels 1-3: tests are 'words' and 'reference'
+        # Level 4: tests are 'reference' and 'text'
+        self.level_tests_completed = {level: {} for level in range(1, 5)}
         # Load previous progress if available
         self.load_progress()
     
@@ -96,21 +97,17 @@ class TextMatchingGame:
                 for level, completed_set in self.completed_lines.items()
             }
             
-            # Convert level1_tests_completed for JSON serialization
-            level1_tests_dict = {
-                f"{ref}|{text}": list(tests) for (ref, text), tests in self.level1_tests_completed.items()
-            }
-            
-            # Convert level4_tests_completed for JSON serialization
-            level4_tests_dict = {
-                f"{ref}|{text}": list(tests) for (ref, text), tests in self.level4_tests_completed.items()
-            }
+            # Convert level_tests_completed for JSON serialization
+            level_tests_dict = {}
+            for level, tests_dict in self.level_tests_completed.items():
+                level_tests_dict[str(level)] = {
+                    f"{ref}|{text}": list(tests) for (ref, text), tests in tests_dict.items()
+                }
             
             progress = {
                 "current_level": self.current_level,
                 "completed_lines": completed_lines_dict,
-                "level1_tests_completed": level1_tests_dict,
-                "level4_tests_completed": level4_tests_dict
+                "level_tests_completed": level_tests_dict
             }
             
             with open(self.save_file, 'w', encoding='utf-8') as f:
@@ -144,17 +141,30 @@ class TextMatchingGame:
                             (ref, text) for ref, text in completed_list
                         }
             
-            # Restore level 1 tests completed
+            # Restore level tests completed (new format)
+            if "level_tests_completed" in progress:
+                for level_str, tests_dict in progress["level_tests_completed"].items():
+                    level = int(level_str)
+                    if level in self.level_tests_completed:
+                        for key, tests_list in tests_dict.items():
+                            ref, text = key.split("|", 1)
+                            self.level_tests_completed[level][(ref, text)] = set(tests_list)
+            
+            # Handle backward compatibility: convert old format to new format
             if "level1_tests_completed" in progress:
                 for key, tests_list in progress["level1_tests_completed"].items():
                     ref, text = key.split("|", 1)
-                    self.level1_tests_completed[(ref, text)] = set(tests_list)
+                    if 1 not in self.level_tests_completed:
+                        self.level_tests_completed[1] = {}
+                    self.level_tests_completed[1][(ref, text)] = set(tests_list)
             
-            # Restore level 4 tests completed
             if "level4_tests_completed" in progress:
                 for key, tests_list in progress["level4_tests_completed"].items():
                     ref, text = key.split("|", 1)
-                    self.level4_tests_completed[(ref, text)] = set(tests_list)
+                    if 4 not in self.level_tests_completed:
+                        self.level_tests_completed[4] = {}
+                    # Convert old 'text' test to new format
+                    self.level_tests_completed[4][(ref, text)] = set(tests_list)
             
             # Check if all current words are completed at level 1
             # If new words were added, reset to level 1 but keep already completed verses
@@ -168,16 +178,13 @@ class TextMatchingGame:
                     # For each level, keep only verses that exist in current word list
                     for level in range(1, 5):
                         self.completed_lines[level] = self.completed_lines[level] & all_current_lines
-                    # Clean up level 1 tests for verses that no longer exist
-                    self.level1_tests_completed = {
-                        (ref, text): tests for (ref, text), tests in self.level1_tests_completed.items()
-                        if (ref, text) in all_current_lines
-                    }
-                    # Clean up level 4 tests for verses that no longer exist
-                    self.level4_tests_completed = {
-                        (ref, text): tests for (ref, text), tests in self.level4_tests_completed.items()
-                        if (ref, text) in all_current_lines
-                    }
+                    # Clean up level tests for verses that no longer exist
+                    for level in range(1, 5):
+                        if level in self.level_tests_completed:
+                            self.level_tests_completed[level] = {
+                                (ref, text): tests for (ref, text), tests in self.level_tests_completed[level].items()
+                                if (ref, text) in all_current_lines
+                            }
                     # Save the updated progress
                     self.save_progress()
             else:
@@ -185,16 +192,13 @@ class TextMatchingGame:
                 # Keep only verses that exist in current word list for all levels
                 for level in range(1, 5):
                     self.completed_lines[level] = self.completed_lines[level] & all_current_lines
-                # Clean up level 1 tests for verses that no longer exist
-                self.level1_tests_completed = {
-                    (ref, text): tests for (ref, text), tests in self.level1_tests_completed.items()
-                    if (ref, text) in all_current_lines
-                }
-                # Clean up level 4 tests for verses that no longer exist
-                self.level4_tests_completed = {
-                    (ref, text): tests for (ref, text), tests in self.level4_tests_completed.items()
-                    if (ref, text) in all_current_lines
-                }
+                # Clean up level tests for verses that no longer exist
+                for level in range(1, 5):
+                    if level in self.level_tests_completed:
+                        self.level_tests_completed[level] = {
+                            (ref, text): tests for (ref, text), tests in self.level_tests_completed[level].items()
+                            if (ref, text) in all_current_lines
+                        }
         except Exception as e:
             # Silently fail if we can't load (e.g., corrupted file)
             # Start fresh
@@ -234,61 +238,48 @@ class TextMatchingGame:
                 hidden_text.append(word)
         return " ".join(hidden_text)
     
-    def create_puzzle(self, reference: str, text: str, level: int) -> str:
-        """Create a puzzle by hiding words based on level."""
-        if level == 4:
-            # Level 4 has special behavior handled separately
-            raise ValueError("Level 4 requires create_level4_puzzle method")
-        words = text.split()
-        words_to_hide = self.get_words_to_hide(words, level)
-        hidden_text = self.hide_words(text, words_to_hide)
-        return f"{reference} {hidden_text}"
+    def get_level_test_type(self, level: int, reference: str, text: str) -> Optional[str]:
+        """Get which test type needs to be done for this verse at the given level."""
+        verse_key = (reference, text)
+        completed_tests = self.level_tests_completed[level].get(verse_key, set())
+        
+        if level in [1, 2, 3]:
+            # Levels 1-3: words test then reference test
+            if 'words' not in completed_tests:
+                return 'words'
+            elif 'reference' not in completed_tests:
+                return 'reference'
+            else:
+                return None  # Both tests completed
+        elif level == 4:
+            # Level 4: reference test then text test
+            if 'reference' not in completed_tests:
+                return 'reference'
+            elif 'text' not in completed_tests:
+                return 'text'
+            else:
+                return None  # Both tests completed
+        else:
+            return None
     
-    def create_level4_puzzle(self, reference: str, text: str, test_type: str) -> str:
-        """Create a level 4 puzzle. test_type is 'text' (hide text, show reference)."""
-        if test_type == 'text':
-            # Show reference, hide text (show blanks for all words)
+    def create_level_puzzle(self, level: int, reference: str, text: str, test_type: str) -> str:
+        """Create a puzzle for the given level and test type."""
+        if test_type == 'words':
+            # Words test: hide percentage based on level
+            words = text.split()
+            words_to_hide = self.get_words_to_hide(words, level)
+            hidden_text = self.hide_words(text, words_to_hide)
+            return f"{reference} {hidden_text}"
+        elif test_type == 'reference':
+            # Reference test: show text, hide reference
+            return f"____ {text}"
+        elif test_type == 'text':
+            # Text test (level 4): show reference, hide all text
             words = text.split()
             hidden_text = " ".join("_" * len(word) for word in words)
             return f"{reference} {hidden_text}"
         else:
-            raise ValueError("test_type must be 'text'")
-    
-    def get_level1_test_type(self, reference: str, text: str) -> Optional[str]:
-        """Get which test type (words or reference) needs to be done for this verse at level 1."""
-        verse_key = (reference, text)
-        completed_tests = self.level1_tests_completed.get(verse_key, set())
-        
-        if 'words' not in completed_tests:
-            return 'words'
-        elif 'reference' not in completed_tests:
-            return 'reference'
-        else:
-            return None  # Both tests completed
-    
-    def create_level1_puzzle(self, reference: str, text: str, test_type: str) -> str:
-        """Create a level 1 puzzle. test_type can be 'words' (20% hiding) or 'reference' (hide reference)."""
-        if test_type == 'words':
-            # Test 1: 20% words hidden (normal puzzle)
-            words = text.split()
-            words_to_hide = self.get_words_to_hide(words, 1)
-            hidden_text = self.hide_words(text, words_to_hide)
-            return f"{reference} {hidden_text}"
-        elif test_type == 'reference':
-            # Test 2: Show text, hide reference
-            return f"____ {text}"
-        else:
-            raise ValueError("test_type must be 'words' or 'reference'")
-    
-    def get_level4_test_type(self, reference: str, text: str) -> Optional[str]:
-        """Get which test type (text) needs to be done for this verse at level 4."""
-        verse_key = (reference, text)
-        completed_tests = self.level4_tests_completed.get(verse_key, set())
-        
-        if 'text' not in completed_tests:
-            return 'text'
-        else:
-            return None  # Test completed
+            raise ValueError(f"test_type must be 'words', 'reference', or 'text' (got {test_type})")
     
     def normalize_text(self, text: str) -> str:
         """Normalize text for comparison (lowercase, remove punctuation, remove extra spaces)."""
@@ -329,24 +320,11 @@ class TextMatchingGame:
     
     def get_available_line(self) -> Tuple[str, str]:
         """Get a random line that hasn't been completed at current level."""
-        if self.current_level == 1:
-            # Level 1: verse is available if not both tests (words and reference) are completed
-            available_lines = [
-                (ref, text) for ref, text in self.lines
-                if self.get_level1_test_type(ref, text) is not None
-            ]
-        elif self.current_level == 4:
-            # Level 4: verse is available if text test is not completed
-            available_lines = [
-                (ref, text) for ref, text in self.lines
-                if self.get_level4_test_type(ref, text) is not None
-            ]
-        else:
-            # Other levels: verse is available if not in completed_lines
-            available_lines = [
-                (ref, text) for ref, text in self.lines
-                if (ref, text) not in self.completed_lines[self.current_level]
-            ]
+        # All levels now use test-based completion tracking
+        available_lines = [
+            (ref, text) for ref, text in self.lines
+            if self.get_level_test_type(self.current_level, ref, text) is not None
+        ]
         
         if not available_lines:
             # All lines completed at this level, move to next level
@@ -407,25 +385,19 @@ class TextMatchingGame:
         # Second try: verify user's words match the hidden words
         return self.verify_user_words(user_answer, puzzle_text, correct_text)
     
-    def check_level1_answer(self, user_answer: str, test_type: str, puzzle_text: str, correct_reference: str, correct_text: str) -> bool:
-        """Check level 1 answer. test_type: 'words' uses normal checking, 'reference' checks if user provided correct reference."""
+    def check_level_answer(self, level: int, user_answer: str, test_type: str, puzzle_text: str, correct_reference: str, correct_text: str) -> bool:
+        """Check answer for a given level and test type."""
         if test_type == 'words':
-            # Use normal answer checking for words test
+            # Words test: use normal answer checking
             # puzzle_text already has the reference removed, so use it directly
             return self.check_answer(user_answer, puzzle_text, correct_text)
         elif test_type == 'reference':
-            # Check if user's answer matches the reference (with or without parentheses/brackets)
-            # Remove parentheses/brackets and normalize for comparison
+            # Reference test: check if user's answer matches the reference (with or without parentheses/brackets)
             ref_clean = re.sub(r'[\(\)\[\]]', '', correct_reference).strip()
             user_clean = re.sub(r'[\(\)\[\]]', '', user_answer).strip()
             return user_clean.lower() == ref_clean.lower()
-        else:
-            return False
-    
-    def check_level4_answer(self, user_answer: str, test_type: str, correct_reference: str, correct_text: str) -> bool:
-        """Check level 4 answer. test_type: 'text' checks if user provided correct text."""
-        if test_type == 'text':
-            # Check if user's answer matches the text
+        elif test_type == 'text':
+            # Text test (level 4): check if user's answer matches the text
             user_normalized = self.normalize_text(user_answer)
             correct_normalized = self.normalize_text(correct_text)
             return user_normalized == correct_normalized
@@ -526,21 +498,20 @@ class TextMatchingGame:
         print(f"Total lines to complete: {len(self.lines)}")
         print("Game rules:")
         print("- Level Basic: 2 tests per verse (20% words hidden + reference test)")
-        print("- Level Intermediate: 40% of words hidden")
-        print("- Level Advanced: 70% of words hidden")
-        print("- Level Royal Priesthood: text test (reference shown, all words hidden)")
+        print("- Level Intermediate: 2 tests per verse (40% words hidden + reference test)")
+        print("- Level Advanced: 2 tests per verse (70% words hidden + reference test)")
+        print("- Level Royal Priesthood: 2 tests per verse (reference test + text test)")
         print("- Complete all lines at each level to progress!")
         print("=" * 60)
         print()
         
         while self.current_level <= 4:
-            print(f"\n{'=' * 60}")
-            if self.current_level == 1:
-                print(f"LEVEL {self.level_names[self.current_level]} (2 tests per verse: words + reference)")
+            print(f"\n\n\n{'=' * 60}")
+            if self.current_level in [1, 2, 3]:
+                hide_pct = int(self.hide_percentages[self.current_level] * 100)
+                print(f"LEVEL {self.level_names[self.current_level]} (2 tests per verse: {hide_pct}% words hidden + reference)")
             elif self.current_level == 4:
-                print(f"LEVEL {self.level_names[self.current_level]} (text test)")
-            else:
-                print(f"LEVEL {self.level_names[self.current_level]} ({int(self.hide_percentages[self.current_level] * 100)}% words hidden)")
+                print(f"LEVEL {self.level_names[self.current_level]} (2 tests per verse: reference + text)")
             print(f"{'=' * 60}")
             
             reference, text = self.get_available_line()
@@ -557,35 +528,28 @@ class TextMatchingGame:
             
             attempts = 0
             while True:
-                # Handle level 1 and 4 special tests
-                if self.current_level == 1:
-                    test_type = self.get_level1_test_type(reference, text)
-                    puzzle = self.create_level1_puzzle(reference, text, test_type)
-                    if test_type == 'reference':
-                        print(f"\nPuzzle: {puzzle}")
-                        print(f"{Colors.CYAN}Test: Reference (provide the verse reference){Colors.RESET}")
-                        prompt = f"\n{Colors.CYAN}Enter the reference (e.g., (1Pe 2:9) or [1Sam 12:21]) (or 'quit' to exit, 'skip' to skip): {Colors.YELLOW}"
-                    else:  # words test
-                        puzzle_text = puzzle[len(reference):].strip()
-                        print(f"\nPuzzle: {puzzle}")
-                        print(f"Reference: {reference}")
-                        print(f"{Colors.CYAN}Test: Words (20% hidden){Colors.RESET}")
-                        prompt = f"\n{Colors.CYAN}Enter the complete text or just the missing words (or 'quit' to exit, 'skip' to skip): {Colors.YELLOW}"
-                elif self.current_level == 4:
-                    test_type = self.get_level4_test_type(reference, text)
-                    puzzle = self.create_level4_puzzle(reference, text, test_type)
+                # Get current test type for this verse
+                test_type = self.get_level_test_type(self.current_level, reference, text)
+                puzzle = self.create_level_puzzle(self.current_level, reference, text, test_type)
+                
+                # Set up display and prompt based on test type
+                if test_type == 'reference':
+                    print(f"\nPuzzle: {puzzle}")
+                    print(f"{Colors.CYAN}Test: Reference (provide the verse reference){Colors.RESET}")
+                    prompt = f"\n{Colors.CYAN}Enter the reference (e.g., (1Pe 2:9) or [1Sam 12:21]) (or 'quit' to exit, 'skip' to skip): {Colors.YELLOW}"
+                elif test_type == 'words':
+                    puzzle_text = puzzle[len(reference):].strip()
+                    hide_pct = int(self.hide_percentages[self.current_level] * 100)
+                    print(f"\nPuzzle: {puzzle}")
+                    print(f"Reference: {reference}")
+                    print(f"{Colors.CYAN}Test: Words ({hide_pct}% hidden){Colors.RESET}")
+                    prompt = f"\n{Colors.CYAN}Enter the complete text or just the missing words (or 'quit' to exit, 'skip' to skip): {Colors.YELLOW}"
+                elif test_type == 'text':
                     puzzle_text = puzzle[len(reference):].strip()
                     print(f"\nPuzzle: {puzzle}")
                     print(f"Reference: {reference}")
                     print(f"{Colors.CYAN}Test: Text (provide the complete verse text){Colors.RESET}")
                     prompt = f"\n{Colors.CYAN}Enter the complete text (or 'quit' to exit, 'skip' to skip): {Colors.YELLOW}"
-                else:
-                    # Levels 2-3: normal puzzle
-                    puzzle = self.create_puzzle(reference, text, self.current_level)
-                    puzzle_text = puzzle[len(reference):].strip()
-                    print(f"\nPuzzle: {puzzle}")
-                    print(f"Reference: {reference}")
-                    prompt = f"\n{Colors.CYAN}Enter the complete text or just the missing words (or 'quit' to exit, 'skip' to skip this line): {Colors.YELLOW}"
                 
                 sys.stdout.flush()  # Flush stdout before input to fix Git Bash hanging issue
                 user_answer = input(prompt).strip()
@@ -603,67 +567,53 @@ class TextMatchingGame:
                 # Show user's answer in yellow
                 print(f"{Colors.YELLOW}Your answer: {user_answer}{Colors.RESET}")
                 
-                # Check answer based on level
-                is_correct = False
-                if self.current_level == 1:
-                    if test_type == 'reference':
-                        is_correct = self.check_level1_answer(user_answer, 'reference', puzzle, reference, text)
-                    else:  # words test
-                        puzzle_text = puzzle[len(reference):].strip()
-                        is_correct = self.check_level1_answer(user_answer, 'words', puzzle_text, reference, text)
-                elif self.current_level == 4:
-                    puzzle_text = puzzle[len(reference):].strip()
-                    is_correct = self.check_level4_answer(user_answer, 'text', reference, text)
+                # Check answer using unified method
+                if test_type == 'reference':
+                    is_correct = self.check_level_answer(self.current_level, user_answer, test_type, puzzle, reference, text)
                 else:
-                    is_correct = self.check_answer(user_answer, puzzle_text, text)
+                    # For words and text tests, extract puzzle_text (without reference)
+                    if test_type == 'words':
+                        puzzle_text = puzzle[len(reference):].strip()
+                    elif test_type == 'text':
+                        puzzle_text = puzzle[len(reference):].strip()
+                    is_correct = self.check_level_answer(self.current_level, user_answer, test_type, puzzle_text, reference, text)
                 
                 if is_correct:
                     print(f"\n{Colors.GREEN}✓ ✅ Correct! Well done! 🎉{Colors.RESET}")
                     
                     # Mark test as completed
-                    if self.current_level == 1:
-                        verse_key = (reference, text)
-                        if verse_key not in self.level1_tests_completed:
-                            self.level1_tests_completed[verse_key] = set()
-                        self.level1_tests_completed[verse_key].add(test_type)
-                        
-                        # Check if both tests are completed
-                        if len(self.level1_tests_completed[verse_key]) == 2:
-                            self.completed_lines[1].add(verse_key)
-                        print(f"{Colors.GREEN}📊 Progress at Level {self.level_names[1]}: {len(self.completed_lines[1])}/{len(self.lines)} verses completed (both tests) ✨{Colors.RESET}")
-                    elif self.current_level == 4:
-                        verse_key = (reference, text)
-                        if verse_key not in self.level4_tests_completed:
-                            self.level4_tests_completed[verse_key] = set()
-                        self.level4_tests_completed[verse_key].add('text')
-                        self.completed_lines[4].add(verse_key)
-                        print(f"{Colors.GREEN}📊 Progress at Level {self.level_names[4]}: {len(self.completed_lines[4])}/{len(self.lines)} verses completed ✨{Colors.RESET}")
-                    else:
-                        self.completed_lines[self.current_level].add((reference, text))
-                        print(f"{Colors.GREEN}📊 Progress at Level {self.level_names[self.current_level]}: {len(self.completed_lines[self.current_level])}/{len(self.lines)} lines completed ✨{Colors.RESET}")
+                    verse_key = (reference, text)
+                    if verse_key not in self.level_tests_completed[self.current_level]:
+                        self.level_tests_completed[self.current_level][verse_key] = set()
+                    self.level_tests_completed[self.current_level][verse_key].add(test_type)
+                    
+                    # Check if all required tests are completed for this level
+                    required_tests = 2  # All levels now require 2 tests
+                    if len(self.level_tests_completed[self.current_level][verse_key]) >= required_tests:
+                        self.completed_lines[self.current_level].add(verse_key)
+                    
+                    completed_count = len(self.completed_lines[self.current_level])
+                    print(f"{Colors.GREEN}📊 Progress at Level {self.level_names[self.current_level]}: {completed_count}/{len(self.lines)} verses completed (all tests) ✨{Colors.RESET}")
                     
                     self.save_progress()  # Save progress after completing a line
                     break
                 else:
                     attempts += 1
                     print(f"\n{Colors.RED}✗ Incorrect. Try again! (Attempt {attempts}){Colors.RESET}")
-                    # Show what was wrong (only for text/words tests, not reference tests)
-                    if self.current_level == 1 and test_type != 'reference':
-                        puzzle_text = puzzle[len(reference):].strip()
-                        self.show_differences(user_answer, puzzle_text, text)
-                    elif self.current_level == 4:
-                        puzzle_text = puzzle[len(reference):].strip()
-                        self.show_differences(user_answer, puzzle_text, text)
-                    elif self.current_level not in [1, 4]:
-                        self.show_differences(user_answer, puzzle_text, text)
-                    elif self.current_level == 1 and test_type == 'reference':
+                    # Show what was wrong
+                    if test_type == 'reference':
                         # For reference test, show what was expected
-                        ref_clean = re.sub(r'[\(\)\[\]]', '', reference).strip()
-                        user_clean = re.sub(r'[\(\)\[\]]', '', user_answer).strip()
                         print(f"{Colors.BLUE}Expected reference: {Colors.GREEN}{reference}{Colors.RESET}")
                         print(f"{Colors.BLUE}Your answer: {Colors.YELLOW}{user_answer}{Colors.RESET}")
+                    else:
+                        # For words/text tests, show differences
+                        if test_type == 'words':
+                            puzzle_text_for_diff = puzzle[len(reference):].strip()
+                        elif test_type == 'text':
+                            puzzle_text_for_diff = puzzle[len(reference):].strip()
+                        self.show_differences(user_answer, puzzle_text_for_diff, text)
         
-        print("\n" + "=" * 60)
+        print("\n\n\n" + "=" * 60)
         print(f"{Colors.GREEN}🎉 CONGRATULATIONS! 🎉{Colors.RESET}")
         print(f"{Colors.GREEN}You've completed all levels of the Text Matching Game!{Colors.RESET}")
         print("=" * 60)
