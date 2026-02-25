@@ -1,0 +1,421 @@
+2026-02-25 15:56:00,664 - rest_client_gui - DEBUG - Treeview columns configured: #0=Variable Name, #1=Value, #2=Status
+2026-02-25 15:56:00,940 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 15:56:00,940 - rest_client_gui - DEBUG - Clearing 0 existing items
+2026-02-25 15:56:00,941 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 15:56:00,941 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 15:56:00,941 - rest_client_gui - DEBUG - Inserted tree item: I001 for variable @client_id
+2026-02-25 15:56:00,941 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 15:56:00,941 - rest_client_gui - DEBUG - Inserted tree item: I002 for variable @client_secret
+2026-02-25 15:56:00,942 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 15:56:00,942 - rest_client_gui - DEBUG - Inserted tree item: I003 for variable @grant_type
+2026-02-25 15:56:00,942 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2183)
+2026-02-25 15:56:00,942 - rest_client_gui - DEBUG - Inserted tree item: I004 for variable @graph_token
+2026-02-25 15:56:00,943 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 15:56:00,943 - rest_client_gui - DEBUG - Inserted tree item: I005 for variable @scope
+2026-02-25 15:56:00,943 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 15:56:00,943 - rest_client_gui - DEBUG - Inserted tree item: I006 for variable @team_id
+2026-02-25 15:56:00,943 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 15:56:00,943 - rest_client_gui - DEBUG - Inserted tree item: I007 for variable @tenant_id
+2026-02-25 15:56:22,935 - rest_client_gui - DEBUG - Double-click event: x=279, y=132
+2026-02-25 15:56:22,936 - rest_client_gui - DEBUG - Identified row item: I006
+2026-02-25 15:56:22,936 - rest_client_gui - DEBUG - Selected item: I006
+2026-02-25 15:56:22,938 - rest_client_gui - DEBUG - Region: cell, Column: #1
+2026-02-25 15:56:22,938 - rest_client_gui - DEBUG - Not Value column - Region: cell, Column: #1 (expected: cell, #2)
+2026-02-25 15:56:33,827 - rest_client_gui - DEBUG - Right-click event: x=56, y=138
+2026-02-25 15:56:33,827 - rest_client_gui - DEBUG - Identified row item: I006
+2026-02-25 15:56:33,828 - rest_client_gui - DEBUG - Selected item: I006
+2026-02-25 15:56:33,828 - rest_client_gui - DEBUG - Region: tree, Column: #0
+2026-02-25 15:56:33,829 - rest_client_gui - DEBUG - Not Value column - Region: tree, Column: #0 (expected: cell, #2)
+2026-02-25 15:56:34,761 - rest_client_gui - DEBUG - Right-click event: x=244, y=135
+2026-02-25 15:56:34,762 - rest_client_gui - DEBUG - Identified row item: I006
+2026-02-25 15:56:34,762 - rest_client_gui - DEBUG - Selected item: I006
+2026-02-25 15:56:34,763 - rest_client_gui - DEBUG - Region: cell, Column: #1
+2026-02-25 15:56:34,763 - rest_client_gui - DEBUG - Not Value column - Region: cell, Column: #1 (expected: cell, #2)
+2026-02-25 15:57:55,441 - rest_client_gui - DEBUG - Right-click event: x=462, y=10
+2026-02-25 15:57:55,442 - rest_client_gui - DEBUG - Identified row item: 
+2026-02-25 15:57:55,443 - rest_client_gui - WARNING - No item identified at right-click position
+2026-02-25 15:57:56,570 - rest_client_gui - DEBUG - Right-click event: x=448, y=10
+2026-02-25 15:57:56,570 - rest_client_gui - DEBUG - Identified row item: 
+2026-02-25 15:57:56,571 - rest_client_gui - WARNING - No item identified at right-click position
+2026-02-25 15:57:57,963 - rest_client_gui - DEBUG - Double-click event: x=448, y=10
+2026-02-25 15:57:57,963 - rest_client_gui - DEBUG - Identified row item: 
+2026-02-25 15:57:57,964 - rest_client_gui - WARNING - No item identified at click position
+2026-02-25 15:58:44,104 - rest_client_gui - DEBUG - Treeview columns configured: #0=Variable Name, #1=Value, #2=Status
+2026-02-25 15:58:44,129 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 15:58:44,129 - rest_client_gui - DEBUG - Clearing 0 existing items
+2026-02-25 15:58:44,130 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 15:58:44,130 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 15:58:44,130 - rest_client_gui - DEBUG - Inserted tree item: I001 for variable @client_id
+2026-02-25 15:58:44,130 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 15:58:44,131 - rest_client_gui - DEBUG - Inserted tree item: I002 for variable @client_secret
+2026-02-25 15:58:44,131 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 15:58:44,131 - rest_client_gui - DEBUG - Inserted tree item: I003 for variable @grant_type
+2026-02-25 15:58:44,131 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2183)
+2026-02-25 15:58:44,132 - rest_client_gui - DEBUG - Inserted tree item: I004 for variable @graph_token
+2026-02-25 15:58:44,132 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 15:58:44,132 - rest_client_gui - DEBUG - Inserted tree item: I005 for variable @scope
+2026-02-25 15:58:44,132 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 15:58:44,133 - rest_client_gui - DEBUG - Inserted tree item: I006 for variable @team_id
+2026-02-25 15:58:44,133 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 15:58:44,133 - rest_client_gui - DEBUG - Inserted tree item: I007 for variable @tenant_id
+2026-02-25 15:58:46,240 - rest_client_gui - DEBUG - Double-click event: x=311, y=130
+2026-02-25 15:58:46,241 - rest_client_gui - DEBUG - Identified row item: I006
+2026-02-25 15:58:46,241 - rest_client_gui - DEBUG - Selected item: I006
+2026-02-25 15:58:46,242 - rest_client_gui - DEBUG - Region: cell, Column: #1
+2026-02-25 15:58:46,242 - rest_client_gui - INFO - Value column clicked, opening edit dialog
+2026-02-25 15:58:46,243 - rest_client_gui - DEBUG - Item text: @team_id, Values: ('9348633e-4453-4ce6-be7f-750bad011d96', '')
+2026-02-25 15:58:46,243 - rest_client_gui - INFO - Editing variable: @team_id = 9348633e-4453-4ce6-be7f-750bad011d96...
+2026-02-25 15:58:46,243 - rest_client_gui - INFO - Opening edit dialog for variable: @team_id
+2026-02-25 15:58:46,244 - rest_client_gui - DEBUG - Current value length: 36
+2026-02-25 15:58:52,899 - rest_client_gui - INFO - Saving variable @team_id: old='9348633e-4453-4ce6-be7f-750bad011d96...', new='9348633e-4453-4ce6-be7f-750bad011d96a...'
+2026-02-25 15:58:52,899 - rest_client_gui - DEBUG - Updating parser variable: team_id
+2026-02-25 15:58:52,900 - rest_client_gui - DEBUG - Updating variable in HTTP file: team_id
+2026-02-25 15:58:52,900 - rest_client_gui - DEBUG - update_variable_in_file called: var_name=team_id, new_value length=37
+2026-02-25 15:58:52,900 - rest_client_gui - DEBUG - HTTP file path: c:\Works\Informatica-API-RestClient\API (Rest Client)\Teams.http
+2026-02-25 15:58:52,901 - rest_client_gui - DEBUG - Reading HTTP file...
+2026-02-25 15:58:52,902 - rest_client_gui - DEBUG - Read 383 lines from file
+2026-02-25 15:58:52,902 - rest_client_gui - DEBUG - Searching for pattern: @team_id=
+2026-02-25 15:58:52,903 - rest_client_gui - DEBUG - Found variable at line 30: @team_id=9348633e-4453-4ce6-be7f-750bad011d96
+2026-02-25 15:58:52,903 - rest_client_gui - DEBUG - Updated line: @team_id=9348633e-4453-4ce6-be7f-750bad011d96a
+
+2026-02-25 15:58:52,905 - rest_client_gui - INFO - Successfully updated variable @team_id in file
+2026-02-25 15:58:52,906 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 15:58:52,906 - rest_client_gui - DEBUG - Clearing 7 existing items
+2026-02-25 15:58:52,906 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 15:58:52,906 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 15:58:52,906 - rest_client_gui - DEBUG - Inserted tree item: I008 for variable @client_id
+2026-02-25 15:58:52,906 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 15:58:52,907 - rest_client_gui - DEBUG - Inserted tree item: I009 for variable @client_secret
+2026-02-25 15:58:52,907 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 15:58:52,907 - rest_client_gui - DEBUG - Inserted tree item: I00A for variable @grant_type
+2026-02-25 15:58:52,907 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2183)
+2026-02-25 15:58:52,907 - rest_client_gui - DEBUG - Inserted tree item: I00B for variable @graph_token
+2026-02-25 15:58:52,907 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 15:58:52,907 - rest_client_gui - DEBUG - Inserted tree item: I00C for variable @scope
+2026-02-25 15:58:52,908 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 37)
+2026-02-25 15:58:52,908 - rest_client_gui - DEBUG - Inserted tree item: I00D for variable @team_id
+2026-02-25 15:58:52,908 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 15:58:52,908 - rest_client_gui - DEBUG - Inserted tree item: I00E for variable @tenant_id
+2026-02-25 15:58:57,910 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): graph.microsoft.com:443
+2026-02-25 15:58:58,181 - urllib3.connectionpool - DEBUG - https://graph.microsoft.com:443 "GET /v1.0/teams/9348633e-4453-4ce6-be7f-750bad011d96a HTTP/1.1" 400 None
+2026-02-25 15:59:05,852 - rest_client_gui - DEBUG - Double-click event: x=350, y=137
+2026-02-25 15:59:05,853 - rest_client_gui - DEBUG - Identified row item: I00D
+2026-02-25 15:59:05,853 - rest_client_gui - DEBUG - Selected item: I00D
+2026-02-25 15:59:05,854 - rest_client_gui - DEBUG - Region: cell, Column: #1
+2026-02-25 15:59:05,855 - rest_client_gui - INFO - Value column clicked, opening edit dialog
+2026-02-25 15:59:05,855 - rest_client_gui - DEBUG - Item text: @team_id, Values: ('9348633e-4453-4ce6-be7f-750bad011d96a', '')
+2026-02-25 15:59:05,856 - rest_client_gui - INFO - Editing variable: @team_id = 9348633e-4453-4ce6-be7f-750bad011d96a...
+2026-02-25 15:59:05,856 - rest_client_gui - INFO - Opening edit dialog for variable: @team_id
+2026-02-25 15:59:05,857 - rest_client_gui - DEBUG - Current value length: 37
+2026-02-25 15:59:10,463 - rest_client_gui - INFO - Saving variable @team_id: old='9348633e-4453-4ce6-be7f-750bad011d96a...', new='9348633e-4453-4ce6-be7f-750bad011d96...'
+2026-02-25 15:59:10,464 - rest_client_gui - DEBUG - Updating parser variable: team_id
+2026-02-25 15:59:10,464 - rest_client_gui - DEBUG - Updating variable in HTTP file: team_id
+2026-02-25 15:59:10,465 - rest_client_gui - DEBUG - update_variable_in_file called: var_name=team_id, new_value length=36
+2026-02-25 15:59:10,465 - rest_client_gui - DEBUG - HTTP file path: c:\Works\Informatica-API-RestClient\API (Rest Client)\Teams.http
+2026-02-25 15:59:10,465 - rest_client_gui - DEBUG - Reading HTTP file...
+2026-02-25 15:59:10,466 - rest_client_gui - DEBUG - Read 383 lines from file
+2026-02-25 15:59:10,467 - rest_client_gui - DEBUG - Searching for pattern: @team_id=
+2026-02-25 15:59:10,467 - rest_client_gui - DEBUG - Found variable at line 30: @team_id=9348633e-4453-4ce6-be7f-750bad011d96a
+2026-02-25 15:59:10,467 - rest_client_gui - DEBUG - Updated line: @team_id=9348633e-4453-4ce6-be7f-750bad011d96
+
+2026-02-25 15:59:10,471 - rest_client_gui - INFO - Successfully updated variable @team_id in file
+2026-02-25 15:59:10,471 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 15:59:10,471 - rest_client_gui - DEBUG - Clearing 7 existing items
+2026-02-25 15:59:10,472 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 15:59:10,472 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 15:59:10,473 - rest_client_gui - DEBUG - Inserted tree item: I00F for variable @client_id
+2026-02-25 15:59:10,473 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 15:59:10,473 - rest_client_gui - DEBUG - Inserted tree item: I010 for variable @client_secret
+2026-02-25 15:59:10,474 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 15:59:10,474 - rest_client_gui - DEBUG - Inserted tree item: I011 for variable @grant_type
+2026-02-25 15:59:10,474 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2183)
+2026-02-25 15:59:10,475 - rest_client_gui - DEBUG - Inserted tree item: I012 for variable @graph_token
+2026-02-25 15:59:10,475 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 15:59:10,476 - rest_client_gui - DEBUG - Inserted tree item: I013 for variable @scope
+2026-02-25 15:59:10,476 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 15:59:10,476 - rest_client_gui - DEBUG - Inserted tree item: I014 for variable @team_id
+2026-02-25 15:59:10,477 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 15:59:10,477 - rest_client_gui - DEBUG - Inserted tree item: I015 for variable @tenant_id
+2026-02-25 15:59:11,711 - rest_client_gui - DEBUG - Right-click event: x=383, y=130
+2026-02-25 15:59:11,711 - rest_client_gui - DEBUG - Identified row item: I014
+2026-02-25 15:59:11,712 - rest_client_gui - DEBUG - Selected item: I014
+2026-02-25 15:59:11,715 - rest_client_gui - DEBUG - Region: cell, Column: #1
+2026-02-25 15:59:11,715 - rest_client_gui - INFO - Value column right-clicked, showing context menu
+2026-02-25 15:59:13,524 - rest_client_gui - DEBUG - _edit_selected_variable called
+2026-02-25 15:59:13,525 - rest_client_gui - DEBUG - Current selection: ('I014',)
+2026-02-25 15:59:13,525 - rest_client_gui - DEBUG - Selected item: I014
+2026-02-25 15:59:13,525 - rest_client_gui - DEBUG - Item text: @team_id, Values: ('9348633e-4453-4ce6-be7f-750bad011d96', '')
+2026-02-25 15:59:13,525 - rest_client_gui - INFO - Editing variable: @team_id = 9348633e-4453-4ce6-be7f-750bad011d96...
+2026-02-25 15:59:13,526 - rest_client_gui - INFO - Opening edit dialog for variable: @team_id
+2026-02-25 15:59:13,526 - rest_client_gui - DEBUG - Current value length: 36
+2026-02-25 16:12:34,370 - rest_client_gui - DEBUG - Treeview columns configured: #0=Variable Name, #1=Value, #2=Status
+2026-02-25 16:12:34,374 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:34,375 - rest_client_gui - DEBUG - Display names count: 21
+2026-02-25 16:12:34,375 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:12:34,636 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 16:12:34,636 - rest_client_gui - DEBUG - Clearing 0 existing items
+2026-02-25 16:12:34,637 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 16:12:34,637 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 16:12:34,637 - rest_client_gui - DEBUG - Inserted tree item: I001 for variable @client_id
+2026-02-25 16:12:34,637 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 16:12:34,638 - rest_client_gui - DEBUG - Inserted tree item: I002 for variable @client_secret
+2026-02-25 16:12:34,638 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 16:12:34,638 - rest_client_gui - DEBUG - Inserted tree item: I003 for variable @grant_type
+2026-02-25 16:12:34,638 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2183)
+2026-02-25 16:12:34,639 - rest_client_gui - DEBUG - Inserted tree item: I004 for variable @graph_token
+2026-02-25 16:12:34,639 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 16:12:34,639 - rest_client_gui - DEBUG - Inserted tree item: I005 for variable @scope
+2026-02-25 16:12:34,639 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 16:12:34,639 - rest_client_gui - DEBUG - Inserted tree item: I006 for variable @team_id
+2026-02-25 16:12:34,640 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 16:12:34,640 - rest_client_gui - DEBUG - Inserted tree item: I007 for variable @tenant_id
+2026-02-25 16:12:36,934 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:36,935 - rest_client_gui - DEBUG - Display names count: 21
+2026-02-25 16:12:36,935 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:36,936 - rest_client_gui - DEBUG - Current display name: POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+2026-02-25 16:12:36,936 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:12:36,937 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:12:36,986 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:36,986 - rest_client_gui - DEBUG - Display names count: 20
+2026-02-25 16:12:36,987 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:36,987 - rest_client_gui - DEBUG - Current display name: POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+2026-02-25 16:12:36,987 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:12:36,988 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:12:37,176 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:37,176 - rest_client_gui - DEBUG - Display names count: 10
+2026-02-25 16:12:37,177 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:37,177 - rest_client_gui - DEBUG - Current display name: POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+2026-02-25 16:12:37,177 - rest_client_gui - DEBUG - Current endpoint not found in new list, will reset to 0
+2026-02-25 16:12:37,178 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:12:39,233 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:39,234 - rest_client_gui - DEBUG - Display names count: 4
+2026-02-25 16:12:39,235 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:39,235 - rest_client_gui - DEBUG - Current display name: GET https://graph.microsoft.com/v1.0/teams/{{team_id}}
+2026-02-25 16:12:39,236 - rest_client_gui - DEBUG - Current endpoint not found in new list, will reset to 0
+2026-02-25 16:12:39,237 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:12:39,461 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:39,462 - rest_client_gui - DEBUG - Display names count: 4
+2026-02-25 16:12:39,462 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:39,463 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:39,464 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:12:39,464 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:12:42,357 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:42,357 - rest_client_gui - DEBUG - Display names count: 4
+2026-02-25 16:12:42,358 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:42,358 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:42,358 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:12:42,359 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:12:42,570 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:42,570 - rest_client_gui - DEBUG - Display names count: 10
+2026-02-25 16:12:42,570 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:42,571 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:42,571 - rest_client_gui - DEBUG - Found current endpoint at new index: 1
+2026-02-25 16:12:42,571 - rest_client_gui - INFO - Preserving selection at index 1
+2026-02-25 16:12:42,759 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:42,759 - rest_client_gui - DEBUG - Display names count: 20
+2026-02-25 16:12:42,760 - rest_client_gui - DEBUG - Current dropdown index: 1
+2026-02-25 16:12:42,760 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:42,760 - rest_client_gui - DEBUG - Found current endpoint at new index: 4
+2026-02-25 16:12:42,761 - rest_client_gui - INFO - Preserving selection at index 4
+2026-02-25 16:12:42,958 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:42,958 - rest_client_gui - DEBUG - Display names count: 21
+2026-02-25 16:12:42,958 - rest_client_gui - DEBUG - Current dropdown index: 4
+2026-02-25 16:12:42,959 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:42,959 - rest_client_gui - DEBUG - Found current endpoint at new index: 4
+2026-02-25 16:12:42,960 - rest_client_gui - INFO - Preserving selection at index 4
+2026-02-25 16:12:43,429 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:43,430 - rest_client_gui - DEBUG - Display names count: 21
+2026-02-25 16:12:43,430 - rest_client_gui - DEBUG - Current dropdown index: 4
+2026-02-25 16:12:43,430 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:43,431 - rest_client_gui - DEBUG - Found current endpoint at new index: 4
+2026-02-25 16:12:43,431 - rest_client_gui - INFO - Preserving selection at index 4
+2026-02-25 16:12:57,035 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:57,036 - rest_client_gui - DEBUG - Display names count: 21
+2026-02-25 16:12:57,036 - rest_client_gui - DEBUG - Current dropdown index: 4
+2026-02-25 16:12:57,036 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:57,037 - rest_client_gui - DEBUG - Found current endpoint at new index: 4
+2026-02-25 16:12:57,037 - rest_client_gui - INFO - Preserving selection at index 4
+2026-02-25 16:12:57,718 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:57,718 - rest_client_gui - DEBUG - Display names count: 7
+2026-02-25 16:12:57,719 - rest_client_gui - DEBUG - Current dropdown index: 4
+2026-02-25 16:12:57,719 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:57,719 - rest_client_gui - DEBUG - Found current endpoint at new index: 2
+2026-02-25 16:12:57,719 - rest_client_gui - INFO - Preserving selection at index 2
+2026-02-25 16:12:57,880 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:57,881 - rest_client_gui - DEBUG - Display names count: 1
+2026-02-25 16:12:57,881 - rest_client_gui - DEBUG - Current dropdown index: 2
+2026-02-25 16:12:57,881 - rest_client_gui - DEBUG - Current display name: POST https://graph.microsoft.com/v1.0/directory/deletedItems/{{team_id}}/restore
+2026-02-25 16:12:57,881 - rest_client_gui - DEBUG - Current endpoint not found in new list, will reset to 0
+2026-02-25 16:12:57,882 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:12:58,046 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:58,046 - rest_client_gui - DEBUG - Display names count: 1
+2026-02-25 16:12:58,047 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:58,047 - rest_client_gui - DEBUG - Current display name: POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+2026-02-25 16:12:58,047 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:12:58,048 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:12:58,122 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:12:58,122 - rest_client_gui - DEBUG - Display names count: 1
+2026-02-25 16:12:58,123 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:12:58,123 - rest_client_gui - DEBUG - Current display name: POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+2026-02-25 16:12:58,123 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:12:58,124 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:13:00,149 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): login.microsoftonline.com:443
+2026-02-25 16:13:00,412 - urllib3.connectionpool - DEBUG - https://login.microsoftonline.com:443 "POST /66e44254-c0ce-4745-9255-907eee03faf6/oauth2/v2.0/token HTTP/1.1" 200 2263
+2026-02-25 16:13:00,419 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 16:13:00,420 - rest_client_gui - DEBUG - Clearing 7 existing items
+2026-02-25 16:13:00,420 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 16:13:00,420 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 16:13:00,420 - rest_client_gui - DEBUG - Inserted tree item: I008 for variable @client_id
+2026-02-25 16:13:00,421 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 16:13:00,421 - rest_client_gui - DEBUG - Inserted tree item: I009 for variable @client_secret
+2026-02-25 16:13:00,421 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Inserted tree item: I00A for variable @grant_type
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2182)
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Inserted tree item: I00B for variable @graph_token
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Inserted tree item: I00C for variable @scope
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Inserted tree item: I00D for variable @team_id
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 16:13:00,422 - rest_client_gui - DEBUG - Inserted tree item: I00E for variable @tenant_id
+2026-02-25 16:16:12,114 - rest_client_gui - DEBUG - Treeview columns configured: #0=Variable Name, #1=Value, #2=Status
+2026-02-25 16:16:12,118 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:16:12,118 - rest_client_gui - DEBUG - Display names count: 31
+2026-02-25 16:16:12,118 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:16:12,458 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 16:16:12,458 - rest_client_gui - DEBUG - Clearing 0 existing items
+2026-02-25 16:16:12,459 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 16:16:12,459 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 16:16:12,459 - rest_client_gui - DEBUG - Inserted tree item: I001 for variable @client_id
+2026-02-25 16:16:12,459 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 16:16:12,460 - rest_client_gui - DEBUG - Inserted tree item: I002 for variable @client_secret
+2026-02-25 16:16:12,460 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 16:16:12,460 - rest_client_gui - DEBUG - Inserted tree item: I003 for variable @grant_type
+2026-02-25 16:16:12,460 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2183)
+2026-02-25 16:16:12,461 - rest_client_gui - DEBUG - Inserted tree item: I004 for variable @graph_token
+2026-02-25 16:16:12,461 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 16:16:12,461 - rest_client_gui - DEBUG - Inserted tree item: I005 for variable @scope
+2026-02-25 16:16:12,461 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 16:16:12,461 - rest_client_gui - DEBUG - Inserted tree item: I006 for variable @team_id
+2026-02-25 16:16:12,461 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 16:16:12,461 - rest_client_gui - DEBUG - Inserted tree item: I007 for variable @tenant_id
+2026-02-25 16:16:15,848 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): login.microsoftonline.com:443
+2026-02-25 16:16:16,264 - urllib3.connectionpool - DEBUG - https://login.microsoftonline.com:443 "POST /66e44254-c0ce-4745-9255-907eee03faf6/oauth2/v2.0/token HTTP/1.1" 200 2263
+2026-02-25 16:16:16,272 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 16:16:16,272 - rest_client_gui - DEBUG - Clearing 7 existing items
+2026-02-25 16:16:16,273 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 16:16:16,273 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 16:16:16,273 - rest_client_gui - DEBUG - Inserted tree item: I008 for variable @client_id
+2026-02-25 16:16:16,274 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 16:16:16,274 - rest_client_gui - DEBUG - Inserted tree item: I009 for variable @client_secret
+2026-02-25 16:16:16,274 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 16:16:16,275 - rest_client_gui - DEBUG - Inserted tree item: I00A for variable @grant_type
+2026-02-25 16:16:16,275 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2182)
+2026-02-25 16:16:16,275 - rest_client_gui - DEBUG - Inserted tree item: I00B for variable @graph_token
+2026-02-25 16:16:16,276 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 16:16:16,276 - rest_client_gui - DEBUG - Inserted tree item: I00C for variable @scope
+2026-02-25 16:16:16,277 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 16:16:16,277 - rest_client_gui - DEBUG - Inserted tree item: I00D for variable @team_id
+2026-02-25 16:16:16,277 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 16:16:16,277 - rest_client_gui - DEBUG - Inserted tree item: I00E for variable @tenant_id
+2026-02-25 16:26:18,583 - rest_client_gui - DEBUG - Treeview columns configured: #0=Variable Name, #1=Value, #2=Status
+2026-02-25 16:26:18,587 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:26:18,588 - rest_client_gui - DEBUG - Display names count: 28
+2026-02-25 16:26:18,588 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:26:18,972 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 16:26:18,973 - rest_client_gui - DEBUG - Clearing 0 existing items
+2026-02-25 16:26:18,973 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 16:26:18,974 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 16:26:18,974 - rest_client_gui - DEBUG - Inserted tree item: I001 for variable @client_id
+2026-02-25 16:26:18,974 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 16:26:18,975 - rest_client_gui - DEBUG - Inserted tree item: I002 for variable @client_secret
+2026-02-25 16:26:18,975 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 16:26:18,976 - rest_client_gui - DEBUG - Inserted tree item: I003 for variable @grant_type
+2026-02-25 16:26:18,976 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2182)
+2026-02-25 16:26:18,976 - rest_client_gui - DEBUG - Inserted tree item: I004 for variable @graph_token
+2026-02-25 16:26:18,976 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 16:26:18,976 - rest_client_gui - DEBUG - Inserted tree item: I005 for variable @scope
+2026-02-25 16:26:18,976 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 16:26:18,977 - rest_client_gui - DEBUG - Inserted tree item: I006 for variable @team_id
+2026-02-25 16:26:18,977 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 16:26:18,977 - rest_client_gui - DEBUG - Inserted tree item: I007 for variable @tenant_id
+2026-02-25 16:26:24,451 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:26:24,451 - rest_client_gui - DEBUG - Display names count: 28
+2026-02-25 16:26:24,451 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:26:24,451 - rest_client_gui - DEBUG - Current display name: POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+2026-02-25 16:26:24,452 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:26:24,452 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:26:24,655 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:26:24,655 - rest_client_gui - DEBUG - Display names count: 7
+2026-02-25 16:26:24,655 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:26:24,656 - rest_client_gui - DEBUG - Current display name: POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+2026-02-25 16:26:24,656 - rest_client_gui - DEBUG - Current endpoint not found in new list, will reset to 0
+2026-02-25 16:26:24,657 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:26:24,824 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:26:24,824 - rest_client_gui - DEBUG - Display names count: 7
+2026-02-25 16:26:24,825 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:26:24,825 - rest_client_gui - DEBUG - Current display name: GET https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/calendarView?startDateTime=2024-02-25T00:00:00Z&endDateTime=2024-12-31T23:59:59Z&$orderby=start/dateTime asc
+2026-02-25 16:26:24,826 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:26:24,826 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:26:24,956 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:26:24,956 - rest_client_gui - DEBUG - Display names count: 7
+2026-02-25 16:26:24,957 - rest_client_gui - DEBUG - Current dropdown index: 0
+2026-02-25 16:26:24,957 - rest_client_gui - DEBUG - Current display name: GET https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/calendarView?startDateTime=2024-02-25T00:00:00Z&endDateTime=2024-12-31T23:59:59Z&$orderby=start/dateTime asc
+2026-02-25 16:26:24,958 - rest_client_gui - DEBUG - Found current endpoint at new index: 0
+2026-02-25 16:26:24,958 - rest_client_gui - INFO - Preserving selection at index 0
+2026-02-25 16:26:31,821 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): graph.microsoft.com:443
+2026-02-25 16:26:32,076 - urllib3.connectionpool - DEBUG - https://graph.microsoft.com:443 "GET /v1.0/groups/9348633e-4453-4ce6-be7f-750bad011d96/calendar/events HTTP/1.1" 403 None
+2026-02-25 16:27:08,808 - rest_client_gui - DEBUG - Double-click event: x=330, y=95
+2026-02-25 16:27:08,808 - rest_client_gui - DEBUG - Identified row item: I004
+2026-02-25 16:27:08,809 - rest_client_gui - DEBUG - Selected item: I004
+2026-02-25 16:27:08,809 - rest_client_gui - DEBUG - Region: cell, Column: #1
+2026-02-25 16:27:08,809 - rest_client_gui - INFO - Value column clicked, opening edit dialog
+2026-02-25 16:27:08,810 - rest_client_gui - DEBUG - Item text: @graph_token, Values: ('eyJ0eXAiOiJKV1QiLCJub25jZSI6IkNSeHlLM21qaVFmNnl2M2JnRGFLWEV3UWJTb3hYN0hDYUxDeHlxUnJWOFEiLCJhbGciOiJSUzI1NiIsIng1dCI6InNNMV95QXhWOEdWNHlOLUI2ajJ4em1pazVBbyIsImtpZCI6InNNMV95QXhWOEdWNHlOLUI2ajJ4em1pazVBbyJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC82NmU0NDI1NC1jMGNlLTQ3NDUtOTI1NS05MDdlZWUwM2ZhZjYvIiwiaWF0IjoxNzcxOTk2Mjc2LCJuYmYiOjE3NzE5OTYyNzYsImV4cCI6MTc3MjAwMDE3NiwiYWlvIjoiazJaZ1lIaWo2NWtYc1c3R0tSZmR2WldWRTNzWEF3QT0iLCJhcHBfZGlzcGxheW5hbWUiOiJUb3JyZW5zIENhbnZhcyBUZWFtcyBDbGFzcyBTeW5jIEluZm9ybWF0aWNhIiwiYXBwaWQiOiI4OWRkODFjMy01MDI5LTQxN2EtOGMzOS1hOWM4NGM2MDQ5NGMiLCJhcHBpZGFjciI6IjEiLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC82NmU0NDI1NC1jMGNlLTQ3NDUtOTI1NS05MDdlZWUwM2ZhZjYvIiwiaWR0eXAiOiJhcHAiLCJvaWQiOiI4MmVhMmYzNy05M2NjLTQ0N2QtYWI1NC1lMzVhYmU3ZDA3ZGYiLCJyaCI6IjEuQVVFQVZFTGtaczdBUlVlU1ZaQi03Z1A2OWdNQUFBQUFBQUFBd0FBQUFBQUFBQUFBQUFCQkFBLiIsInJvbGVzIjpbIkVkdVJvc3Rlci5SZWFkLkFsbCIsIkdyb3VwLlJlYWRXcml0ZS5BbGwiLCJVc2VyLlJlYWQuQWxsIiwiR3JvdXBNZW1iZXIuUmVhZC5BbGwiLCJUZWFtTWVtYmVyLlJlYWRXcml0ZS5BbGwiLCJUZWFtLlJlYWRCYXNpYy5BbGwiLCJDaGFubmVsTWVzc2FnZS5SZWFkLkFsbCJdLCJzdWIiOiI4MmVhMmYzNy05M2NjLTQ0N2QtYWI1NC1lMzVhYmU3ZDA3ZGYiLCJ0ZW5hbnRfcmVnaW9uX3Njb3BlIjoiT0MiLCJ0aWQiOiI2NmU0NDI1NC1jMGNlLTQ3NDUtOTI1NS05MDdlZWUwM2ZhZjYiLCJ1dGkiOiIwcWV5dEs4anFrMjBCQzM4bTFJTkFBIiwidmVyIjoiMS4wIiwid2lkcyI6WyIwOTk3YTFkMC0wZDFkLTRhY2ItYjQwOC1kNWNhNzMxMjFlOTAiXSwieG1zX2FjZCI6MTcyNDcxOTcyMywieG1zX2FjdF9mY3QiOiI5IDMiLCJ4bXNfZnRkIjoidVlWbUFHbU4zQlhjUWd4QkpaTm9SRU5FbnYwTGFhdGJtVEVYM3lOOFJTRUJZWFZ6ZEhKaGJHbGhaV0Z6ZEMxa2MyMXoiLCJ4bXNfaWRyZWwiOiI3IDMwIiwieG1zX3JkIjoiMC40MkxsWUJKaWRCUVM0V0FYRXRoY3UxdXM0aGlqX19hdE42U01EbDB4QklweUNnbE1ObkwxNDdzWDdqN3Q2YVlIdVJfOUZnRkZPWVFFbUJrZzRBQ1VCb3B5Q3dsWWJHUXpaX0xXZjhzcm1uRnpzcXI4YXdBIiwieG1zX3N1Yl9mY3QiOiIzIDkiLCJ4bXNfdGNkdCI6MTQ2Nzg1ODE5OCwieG1zX3RudF9mY3QiOiIzIDgifQ.nU0VPg5vBqxOhYgUueKDQc99jU8lOosqy_V8nz0VWFzevsnvarKN8jJsCJXMwClFOljJDPKWS_oSjA45SimlA2KDOIo5-Va84foVoqkg3tnTaocBRqR3U-JQgzcB5Bn9wg26i8uedG4-GPxg4Ej10HAnuaBhFKxyuEtFPh6YQITX-WSEIeMskARVJgRnGDUKJOf0xIUGjf7QjL66SzLAa1ibICLq7JWDuIEf0iQPo1wxB1h4Gadz9mDZlYLtdf0_Jx0zErOcIcKkTLgRkNAC0y0qvMZ12Qm0IlcXdSTKGKBcHZMpTSzLmTM4M7DCo-XDe8gJqr5mmLsI-T6RN4JcJg', 'Valid (refreshed: 2026-02-25 05:11:16 UTC, roles: 7)')
+2026-02-25 16:27:08,810 - rest_client_gui - INFO - Editing variable: @graph_token = eyJ0eXAiOiJKV1QiLCJub25jZSI6IkNSeHlLM21qaVFmNnl2M2...
+2026-02-25 16:27:08,811 - rest_client_gui - INFO - Opening edit dialog for variable: @graph_token
+2026-02-25 16:27:08,811 - rest_client_gui - DEBUG - Current value length: 2182
+2026-02-25 16:27:20,430 - rest_client_gui - DEBUG - Treeview columns configured: #0=Variable Name, #1=Value, #2=Status
+2026-02-25 16:27:20,436 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=True
+2026-02-25 16:27:20,437 - rest_client_gui - DEBUG - Display names count: 28
+2026-02-25 16:27:20,437 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:27:20,809 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 16:27:20,809 - rest_client_gui - DEBUG - Clearing 0 existing items
+2026-02-25 16:27:20,810 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 16:27:20,810 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 16:27:20,810 - rest_client_gui - DEBUG - Inserted tree item: I001 for variable @client_id
+2026-02-25 16:27:20,811 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 16:27:20,811 - rest_client_gui - DEBUG - Inserted tree item: I002 for variable @client_secret
+2026-02-25 16:27:20,811 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 16:27:20,812 - rest_client_gui - DEBUG - Inserted tree item: I003 for variable @grant_type
+2026-02-25 16:27:20,812 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2182)
+2026-02-25 16:27:20,812 - rest_client_gui - DEBUG - Inserted tree item: I004 for variable @graph_token
+2026-02-25 16:27:20,812 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 16:27:20,813 - rest_client_gui - DEBUG - Inserted tree item: I005 for variable @scope
+2026-02-25 16:27:20,813 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 16:27:20,813 - rest_client_gui - DEBUG - Inserted tree item: I006 for variable @team_id
+2026-02-25 16:27:20,813 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 16:27:20,813 - rest_client_gui - DEBUG - Inserted tree item: I007 for variable @tenant_id
+2026-02-25 16:29:50,040 - rest_client_gui - DEBUG - Loaded 4 entries from run history
+2026-02-25 16:29:50,092 - rest_client_gui - DEBUG - Treeview columns configured: #0=Variable Name, #1=Value, #2=Status
+2026-02-25 16:29:50,116 - rest_client_gui - DEBUG - update_endpoint_dropdown called, preserve_selection=False
+2026-02-25 16:29:50,117 - rest_client_gui - DEBUG - Display names count: 28
+2026-02-25 16:29:50,118 - rest_client_gui - DEBUG - Resetting to index 0 (current_selection=None)
+2026-02-25 16:29:50,626 - rest_client_gui - INFO - Most recently run endpoint: GET https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/events at 2026-02-25 16:26:32
+2026-02-25 16:29:50,627 - rest_client_gui - INFO - Found matching endpoint at index 22, selecting it
+2026-02-25 16:29:50,629 - rest_client_gui - DEBUG - populate_variables_tab called
+2026-02-25 16:29:50,630 - rest_client_gui - DEBUG - Clearing 0 existing items
+2026-02-25 16:29:50,630 - rest_client_gui - DEBUG - Found 7 variables in parser
+2026-02-25 16:29:50,631 - rest_client_gui - DEBUG - Adding variable: @client_id (value length: 36)
+2026-02-25 16:29:50,631 - rest_client_gui - DEBUG - Inserted tree item: I001 for variable @client_id
+2026-02-25 16:29:50,632 - rest_client_gui - DEBUG - Adding variable: @client_secret (value length: 40)
+2026-02-25 16:29:50,633 - rest_client_gui - DEBUG - Inserted tree item: I002 for variable @client_secret
+2026-02-25 16:29:50,633 - rest_client_gui - DEBUG - Adding variable: @grant_type (value length: 18)
+2026-02-25 16:29:50,634 - rest_client_gui - DEBUG - Inserted tree item: I003 for variable @grant_type
+2026-02-25 16:29:50,634 - rest_client_gui - DEBUG - Adding variable: @graph_token (value length: 2182)
+2026-02-25 16:29:50,635 - rest_client_gui - DEBUG - Inserted tree item: I004 for variable @graph_token
+2026-02-25 16:29:50,635 - rest_client_gui - DEBUG - Adding variable: @scope (value length: 36)
+2026-02-25 16:29:50,636 - rest_client_gui - DEBUG - Inserted tree item: I005 for variable @scope
+2026-02-25 16:29:50,636 - rest_client_gui - DEBUG - Adding variable: @team_id (value length: 36)
+2026-02-25 16:29:50,637 - rest_client_gui - DEBUG - Inserted tree item: I006 for variable @team_id
+2026-02-25 16:29:50,638 - rest_client_gui - DEBUG - Adding variable: @tenant_id (value length: 36)
+2026-02-25 16:29:50,638 - rest_client_gui - DEBUG - Inserted tree item: I007 for variable @tenant_id
