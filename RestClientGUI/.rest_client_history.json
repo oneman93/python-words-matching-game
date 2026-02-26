@@ -1,6 +1,10 @@
 {
   "GET https://graph.microsoft.com/v1.0/teams/{{team_id}}": "2026-02-25 15:58:58",
-  "GET https://graph.microsoft.com/v1.0/teams/{{team_id}}/channels": "2026-02-25 15:46:53",
-  "POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token": "2026-02-25 16:16:16",
-  "GET https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/events": "2026-02-25 16:26:32"
+  "GET https://graph.microsoft.com/v1.0/teams/{{team_id}}/channels": "2026-02-26 10:03:25",
+  "POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token": "2026-02-26 11:08:03",
+  "GET https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/events": "2026-02-26 11:11:43",
+  "GET https://mylearn.torrens.edu.au/api/v1/courses/22373/users?include[]=enrollments&per_page=100": "2026-02-26 12:55:21",
+  "GET https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/calendarView?startDateTime=2024-02-25T00:00:00Z&endDateTime=2024-12-31T23:59:59Z&$orderby=start/dateTime asc": "2026-02-26 11:12:40",
+  "POST https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/events": "2026-02-26 11:12:05",
+  "GET https://graph.microsoft.com/v1.0/groups/{{team_id}}/calendar/events?$filter=start/dateTime ge '2026-01-01T00:00:00Z'&$orderby=start/dateTime asc&$top=50": "2026-02-26 11:14:26"
 }

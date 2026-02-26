@@ -10,10 +10,24 @@ from rest_client_gui import RestClientGUI
 
 
 def get_http_file_path():
-    """Get the path to the Teams.http file."""
+    """Get the path to the HTTP file (loads last selected or defaults to Teams.http)."""
+    script_dir = Path(__file__).parent
+    config_file = script_dir / '.rest_client_config.json'
+    
+    # Try to load last selected file
+    try:
+        if config_file.exists():
+            import json
+            with open(config_file, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+                file_path = config.get('last_selected_file')
+                if file_path and Path(file_path).exists():
+                    return str(file_path)
+    except Exception:
+        pass  # Fall through to default
+    
     # Default path relative to this script
-    script_dir = Path(__file__).parent.parent
-    default_path = script_dir / "Informatica-API-RestClient" / "API (Rest Client)" / "Teams.http"
+    default_path = script_dir.parent / "Informatica-API-RestClient" / "API (Rest Client)" / "Teams.http"
     
     # Check if default path exists
     if default_path.exists():

@@ -4,7 +4,7 @@ Tkinter-based GUI for executing HTTP requests from Teams.http file.
 """
 
 import tkinter as tk
-from tkinter import ttk, scrolledtext, messagebox
+from tkinter import ttk, scrolledtext, messagebox, filedialog
 import requests
 import json
 import base64
@@ -43,7 +43,15 @@ class RestClientGUI:
         # Store history file in the RestClientGUI folder
         script_dir = Path(__file__).parent
         self.run_history_file = script_dir / '.rest_client_history.json'
+        self.config_file = script_dir / '.rest_client_config.json'
         self.load_run_history()
+        
+        # ResponseTree tab is now used for expand/collapse, no need for collapse state here
+        
+        # Search state for TreeView
+        self.tree_search_matches = []  # List of matching item IDs
+        self.tree_search_current_index = -1  # Current match index
+        self.tree_search_term = ""  # Current search term
         
         self.setup_ui()
         self.load_endpoints()
@@ -61,19 +69,41 @@ class RestClientGUI:
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
         main_frame.columnconfigure(1, weight=1)
-        main_frame.rowconfigure(5, weight=1)
+        main_frame.rowconfigure(6, weight=1)
+        
+        # File selection button and label
+        select_frame = ttk.Frame(main_frame)
+        select_frame.grid(row=0, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=5)
+        select_frame.columnconfigure(1, weight=1)
+        
+        select_button = ttk.Button(
+            select_frame,
+            text="Select",
+            command=self.select_http_file,
+            width=10
+        )
+        select_button.grid(row=0, column=0, sticky=tk.W, padx=(0, 5))
+        
+        # Label to show selected file
+        self.selected_file_label = ttk.Label(
+            select_frame,
+            text=f"File: {Path(self.http_file_path).name}",
+            font=('Arial', 9),
+            foreground='blue'
+        )
+        self.selected_file_label.grid(row=0, column=1, sticky=tk.W)
         
         # Search filter
-        ttk.Label(main_frame, text="Search Filter:").grid(row=0, column=0, sticky=tk.W, pady=5)
+        ttk.Label(main_frame, text="Search Filter:").grid(row=1, column=0, sticky=tk.W, pady=5)
         self.search_var = tk.StringVar()
         self.search_var.trace('w', self.on_search_changed)
         search_entry = ttk.Entry(main_frame, textvariable=self.search_var, width=30)
-        search_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=5, padx=5)
+        search_entry.grid(row=1, column=1, sticky=(tk.W, tk.E), pady=5, padx=5)
         
         # API Endpoint dropdown with Copy URL button
-        ttk.Label(main_frame, text="API Endpoint:").grid(row=1, column=0, sticky=tk.W, pady=5)
+        ttk.Label(main_frame, text="API Endpoint:").grid(row=2, column=0, sticky=tk.W, pady=5)
         endpoint_frame = ttk.Frame(main_frame)
-        endpoint_frame.grid(row=1, column=1, sticky=(tk.W, tk.E), pady=5, padx=5)
+        endpoint_frame.grid(row=2, column=1, sticky=(tk.W, tk.E), pady=5, padx=5)
         endpoint_frame.columnconfigure(0, weight=1)
         
         self.endpoint_var = tk.StringVar()
@@ -103,7 +133,7 @@ class RestClientGUI:
             foreground='gray',
             wraplength=700
         )
-        self.description_label.grid(row=2, column=0, columnspan=2, sticky=tk.W, padx=5, pady=(0, 5))
+        self.description_label.grid(row=3, column=0, columnspan=2, sticky=tk.W, padx=5, pady=(0, 5))
         
         # Last run time label
         self.last_run_label = ttk.Label(
@@ -112,7 +142,7 @@ class RestClientGUI:
             font=('Arial', 8),
             foreground='gray'
         )
-        self.last_run_label.grid(row=3, column=0, columnspan=2, sticky=tk.W, padx=5, pady=(0, 5))
+        self.last_run_label.grid(row=4, column=0, columnspan=2, sticky=tk.W, padx=5, pady=(0, 5))
         
         # Run button
         self.run_button = ttk.Button(
@@ -121,17 +151,20 @@ class RestClientGUI:
             command=self.run_request,
             width=15
         )
-        self.run_button.grid(row=4, column=0, columnspan=2, pady=10)
+        self.run_button.grid(row=5, column=0, columnspan=2, pady=10)
         
         # Create notebook for tabs
         self.notebook = ttk.Notebook(main_frame)
-        self.notebook.grid(row=5, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
+        self.notebook.grid(row=6, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
         
         # Tab 1: Variables
         self.setup_variables_tab()
         
-        # Tab 2: Response
+        # Tab 2: Response (Raw JSON)
         self.setup_response_tab()
+        
+        # Tab 3: ResponseTree (TreeView)
+        self.setup_response_tree_tab()
         
         # Status bar
         self.status_var = tk.StringVar(value="Ready")
@@ -141,7 +174,7 @@ class RestClientGUI:
             relief=tk.SUNKEN,
             anchor=tk.W
         )
-        self.status_bar.grid(row=6, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=5)
+        self.status_bar.grid(row=7, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=5)
     
     def setup_variables_tab(self):
         """Set up the Variables tab."""
@@ -221,7 +254,7 @@ class RestClientGUI:
         info_label.grid(row=3, column=0, columnspan=2, sticky=tk.W, pady=(10, 0))
     
     def setup_response_tab(self):
-        """Set up the Response tab."""
+        """Set up the Response tab with raw JSON text."""
         response_frame = ttk.Frame(self.notebook, padding="5")
         self.notebook.add(response_frame, text="Response")
         
@@ -229,7 +262,7 @@ class RestClientGUI:
         response_frame.columnconfigure(0, weight=1)
         response_frame.rowconfigure(0, weight=1)
         
-        # Response text box with scrollbar
+        # Response text box with scrollbar (raw JSON only)
         self.response_text = scrolledtext.ScrolledText(
             response_frame,
             wrap=tk.WORD,
@@ -253,10 +286,317 @@ class RestClientGUI:
         # Bind Ctrl-F for search in response text
         self.response_text.bind('<Control-f>', self.show_search_dialog)
         self.response_text.bind('<Control-F>', self.show_search_dialog)
+    
+    def setup_response_tree_tab(self):
+        """Set up the ResponseTree tab with TreeView for expand/collapse."""
+        tree_frame = ttk.Frame(self.notebook, padding="5")
+        self.notebook.add(tree_frame, text="ResponseTree")
         
-        # Configure highlight tag for search results
-        self.response_text.tag_configure('search_highlight', background='yellow', foreground='black')
-        self.response_text.tag_configure('search_current', background='orange', foreground='black')
+        # Configure grid
+        tree_frame.columnconfigure(0, weight=1)
+        tree_frame.rowconfigure(1, weight=1)  # TreeView row
+        
+        # Search frame
+        search_frame = ttk.Frame(tree_frame)
+        search_frame.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
+        search_frame.columnconfigure(1, weight=1)
+        
+        # Search label
+        ttk.Label(search_frame, text="Search:").grid(row=0, column=0, padx=(0, 5))
+        
+        # Search entry
+        self.tree_search_var = tk.StringVar()
+        self.tree_search_entry = ttk.Entry(search_frame, textvariable=self.tree_search_var, width=30)
+        self.tree_search_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(0, 5))
+        self.tree_search_entry.bind('<Return>', lambda e: self.search_tree_view())
+        
+        # Search button
+        search_button = ttk.Button(search_frame, text="Search Tree View", command=self.search_tree_view)
+        search_button.grid(row=0, column=2, padx=(0, 5))
+        
+        # Previous button
+        self.tree_search_prev_button = ttk.Button(search_frame, text="◀ Previous", command=self.search_tree_previous, state='disabled')
+        self.tree_search_prev_button.grid(row=0, column=3, padx=(0, 5))
+        
+        # Next button
+        self.tree_search_next_button = ttk.Button(search_frame, text="Next ▶", command=self.search_tree_next, state='disabled')
+        self.tree_search_next_button.grid(row=0, column=4, padx=(0, 5))
+        
+        # Clear button
+        clear_button = ttk.Button(search_frame, text="Clear", command=self.clear_tree_search)
+        clear_button.grid(row=0, column=5, padx=(0, 5))
+        
+        # Match count label
+        self.tree_search_count_label = ttk.Label(search_frame, text="", foreground='gray')
+        self.tree_search_count_label.grid(row=0, column=6, padx=(10, 0))
+        
+        # TreeView frame
+        tree_container = ttk.Frame(tree_frame)
+        tree_container.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        tree_container.columnconfigure(0, weight=1)
+        tree_container.rowconfigure(0, weight=1)
+        
+        # Create scrollbars
+        tree_scroll_y = ttk.Scrollbar(tree_container, orient=tk.VERTICAL)
+        tree_scroll_x = ttk.Scrollbar(tree_container, orient=tk.HORIZONTAL)
+        
+        # Create TreeView
+        self.response_tree = ttk.Treeview(
+            tree_container,
+            columns=('Value',),
+            show='tree',
+            yscrollcommand=tree_scroll_y.set,
+            xscrollcommand=tree_scroll_x.set
+        )
+        
+        tree_scroll_y.config(command=self.response_tree.yview)
+        tree_scroll_x.config(command=self.response_tree.xview)
+        
+        # Configure column
+        self.response_tree.column('#0', width=400, minwidth=200)
+        self.response_tree.column('Value', width=500, minwidth=200)
+        self.response_tree.heading('#0', text='Key')
+        self.response_tree.heading('Value', text='Value')
+        
+        # Grid treeview and scrollbars
+        self.response_tree.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        tree_scroll_y.grid(row=0, column=1, sticky=(tk.N, tk.S))
+        tree_scroll_x.grid(row=1, column=0, sticky=(tk.W, tk.E))
+    
+    def populate_response_tree(self, response: requests.Response):
+        """Populate the TreeView with JSON response data."""
+        # Clear existing items
+        for item in self.response_tree.get_children():
+            self.response_tree.delete(item)
+        
+        try:
+            # Try to parse as JSON
+            json_data = response.json()
+            
+            # Add status and headers as root items
+            status_item = self.response_tree.insert('', 'end', text=f"Status: {response.status_code} {response.reason}", values=('',))
+            
+            headers_item = self.response_tree.insert('', 'end', text="Headers", values=('',))
+            for key, value in response.headers.items():
+                self.response_tree.insert(headers_item, 'end', text=key, values=(str(value),))
+            
+            # Add body
+            body_item = self.response_tree.insert('', 'end', text="Body", values=('',))
+            
+            # Recursively add JSON data
+            self._add_json_to_tree(body_item, json_data, "root")
+            
+            # Expand status and headers by default
+            self.response_tree.item(status_item, open=True)
+            self.response_tree.item(headers_item, open=True)
+            self.response_tree.item(body_item, open=True)
+            
+        except (json.JSONDecodeError, ValueError):
+            # Not JSON, add as text
+            self.response_tree.insert('', 'end', text="Response (Not JSON)", values=('',))
+            self.response_tree.insert('', 'end', text=response.text[:200] + "..." if len(response.text) > 200 else response.text, values=('',))
+    
+    def _add_json_to_tree(self, parent, data, key_name=""):
+        """Recursively add JSON data to TreeView."""
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if isinstance(value, (dict, list)):
+                    # Complex type - create node
+                    node = self.response_tree.insert(parent, 'end', text=str(key), values=('',))
+                    self._add_json_to_tree(node, value, key)
+                else:
+                    # Simple value
+                    value_str = json.dumps(value, ensure_ascii=False) if not isinstance(value, str) else value
+                    if len(value_str) > 100:
+                        value_str = value_str[:100] + "..."
+                    self.response_tree.insert(parent, 'end', text=str(key), values=(value_str,))
+        elif isinstance(data, list):
+            for i, item in enumerate(data):
+                if isinstance(item, (dict, list)):
+                    # Complex type - create node
+                    node = self.response_tree.insert(parent, 'end', text=f"[{i}]", values=('',))
+                    self._add_json_to_tree(node, item, f"[{i}]")
+                else:
+                    # Simple value
+                    value_str = json.dumps(item, ensure_ascii=False) if not isinstance(item, str) else item
+                    if len(value_str) > 100:
+                        value_str = value_str[:100] + "..."
+                    self.response_tree.insert(parent, 'end', text=f"[{i}]", values=(value_str,))
+        else:
+            # Simple value
+            value_str = json.dumps(data, ensure_ascii=False) if not isinstance(data, str) else data
+            if len(value_str) > 100:
+                value_str = value_str[:100] + "..."
+            self.response_tree.insert(parent, 'end', text=key_name, values=(value_str,))
+    
+    def search_tree_view(self, event=None):
+        """Search for text in TreeView and expand matching nodes."""
+        search_term = self.tree_search_var.get().strip()
+        
+        if not search_term:
+            self.clear_tree_search()
+            return
+        
+        # Clear previous search
+        self.tree_search_matches = []
+        self.tree_search_current_index = -1
+        self.tree_search_term = search_term.lower()
+        
+        # Recursively search all items
+        self._search_tree_recursive('', search_term.lower())
+        
+        # Update UI
+        match_count = len(self.tree_search_matches)
+        if match_count > 0:
+            self.tree_search_count_label.config(text=f"Found {match_count} match{'es' if match_count > 1 else ''}")
+            self.tree_search_prev_button.config(state='normal')
+            self.tree_search_next_button.config(state='normal')
+            # Select first match
+            self.tree_search_current_index = 0
+            self._highlight_tree_match(0)
+        else:
+            self.tree_search_count_label.config(text="No matches found", foreground='red')
+            self.tree_search_prev_button.config(state='disabled')
+            self.tree_search_next_button.config(state='disabled')
+    
+    def _search_tree_recursive(self, parent_item, search_term):
+        """Recursively search TreeView items."""
+        children = self.response_tree.get_children(parent_item)
+        
+        for item in children:
+            # Get item text and value
+            item_text = self.response_tree.item(item, 'text')
+            item_values = self.response_tree.item(item, 'values')
+            item_value = item_values[0] if item_values else ''
+            
+            # Check if search term matches
+            text_match = search_term in item_text.lower()
+            value_match = search_term in str(item_value).lower()
+            
+            if text_match or value_match:
+                # Found a match - expand all parents to make it visible
+                self._expand_tree_parents(item)
+                self.tree_search_matches.append(item)
+            
+            # Recursively search children
+            self._search_tree_recursive(item, search_term)
+    
+    def _expand_tree_parents(self, item):
+        """Expand all parent nodes to make an item visible."""
+        parent = self.response_tree.parent(item)
+        while parent:
+            self.response_tree.item(parent, open=True)
+            parent = self.response_tree.parent(parent)
+    
+    def _highlight_tree_match(self, index):
+        """Highlight and scroll to a match at the given index."""
+        if 0 <= index < len(self.tree_search_matches):
+            item = self.tree_search_matches[index]
+            
+            # Clear previous selection
+            self.response_tree.selection_remove(self.response_tree.selection())
+            
+            # Select current match
+            self.response_tree.selection_set(item)
+            self.response_tree.focus(item)
+            
+            # Expand parents and scroll to item
+            self._expand_tree_parents(item)
+            self.response_tree.see(item)
+            
+            # Update match count display
+            self.tree_search_count_label.config(
+                text=f"Match {index + 1} of {len(self.tree_search_matches)}",
+                foreground='blue'
+            )
+    
+    def search_tree_next(self):
+        """Navigate to next search match."""
+        if self.tree_search_matches:
+            self.tree_search_current_index = (self.tree_search_current_index + 1) % len(self.tree_search_matches)
+            self._highlight_tree_match(self.tree_search_current_index)
+    
+    def search_tree_previous(self):
+        """Navigate to previous search match."""
+        if self.tree_search_matches:
+            self.tree_search_current_index = (self.tree_search_current_index - 1) % len(self.tree_search_matches)
+            self._highlight_tree_match(self.tree_search_current_index)
+    
+    def clear_tree_search(self):
+        """Clear search and reset TreeView state."""
+        self.tree_search_var.set("")
+        self.tree_search_matches = []
+        self.tree_search_current_index = -1
+        self.tree_search_term = ""
+        self.tree_search_count_label.config(text="")
+        self.tree_search_prev_button.config(state='disabled')
+        self.tree_search_next_button.config(state='disabled')
+        
+        # Clear selection
+        self.response_tree.selection_remove(self.response_tree.selection())
+    
+    def select_http_file(self):
+        """Open file dialog to select an HTTP file."""
+        # Get the default directory (same directory as current file or default location)
+        default_dir = Path(self.http_file_path).parent if self.http_file_path else str(
+            Path(__file__).parent.parent / "Informatica-API-RestClient" / "API (Rest Client)")
+        
+        # Open file dialog
+        file_path = filedialog.askopenfilename(
+            title="Select HTTP File",
+            initialdir=str(default_dir),
+            filetypes=[("HTTP files", "*.http"), ("All files", "*.*")]
+        )
+        
+        if file_path:
+            # Update the HTTP file path
+            self.http_file_path = file_path
+            
+            # Save the selected file path
+            self.save_selected_file_path(file_path)
+            
+            # Update the label
+            self.selected_file_label.config(text=f"File: {Path(file_path).name}")
+            
+            # Clear current state
+            self.current_endpoint = None
+            self.search_var.set("")
+            
+            # Reload endpoints and variables
+            self.load_endpoints()
+            
+            logger.info(f"Selected HTTP file: {file_path}")
+    
+    def save_selected_file_path(self, file_path: str):
+        """Save the selected HTTP file path to config file."""
+        try:
+            config = {}
+            if self.config_file.exists():
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+            
+            config['last_selected_file'] = file_path
+            
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=2)
+            
+            logger.debug(f"Saved selected file path: {file_path}")
+        except Exception as e:
+            logger.error(f"Error saving selected file path: {e}")
+    
+    def load_selected_file_path(self) -> Optional[str]:
+        """Load the last selected HTTP file path from config file."""
+        try:
+            if self.config_file.exists():
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                    file_path = config.get('last_selected_file')
+                    if file_path and Path(file_path).exists():
+                        logger.debug(f"Loaded selected file path: {file_path}")
+                        return file_path
+        except Exception as e:
+            logger.error(f"Error loading selected file path: {e}")
+        return None
     
     def load_endpoints(self):
         """Load endpoints from the HTTP file."""
@@ -276,6 +616,7 @@ class RestClientGUI:
         except Exception as e:
             messagebox.showerror("Error", f"Failed to load endpoints: {str(e)}")
             self.status_var.set(f"Error: {str(e)}")
+            logger.error(f"Error loading endpoints: {e}", exc_info=True)
     
     def decode_token_claims(self, token: str) -> Optional[dict]:
         """Decode JWT token and return claims."""
@@ -676,13 +1017,28 @@ class RestClientGUI:
         if not self.parser:
             return
         
+        logger.debug(f"Updating endpoints with variable: {var_name}")
+        
+        # Special handling for graph_token: update Authorization headers directly
+        if var_name == 'graph_token':
+            # Re-parse all endpoints to get fresh headers with new token
+            # This is necessary because headers are already substituted during initial parsing
+            logger.info("Re-parsing endpoints to update Authorization headers with new token")
+            self.all_endpoints = self.parser.parse()
+            self.filtered_endpoints = self.all_endpoints.copy()
+            # Update dropdown to reflect any changes
+            self.update_endpoint_dropdown(preserve_selection=True)
+            logger.info(f"Re-parsed {len(self.all_endpoints)} endpoints with new token")
+            return
+        
+        # For other variables, update in-place if they still have the template
         # Re-substitute variables in all endpoints
         for endpoint in self.all_endpoints:
             # Update URL if it contains the variable
             if f'{{{{{var_name}}}}}' in endpoint.original_url:
                 endpoint.url = endpoint.original_url.replace(f'{{{{{var_name}}}}}', new_value)
             
-            # Update headers if they contain the variable
+            # Update headers if they contain the variable template
             for header_name, header_value in endpoint.headers.items():
                 if f'{{{{{var_name}}}}}' in header_value:
                     endpoint.headers[header_name] = header_value.replace(f'{{{{{var_name}}}}}', new_value)
@@ -984,8 +1340,8 @@ class RestClientGUI:
             # Record that this endpoint was run
             self.record_endpoint_run(endpoint)
             
-            # Format response
-            response_text = self.format_response(response)
+            # Format response for raw JSON display (Response tab)
+            response_text = self.format_response_raw(response)
             self.response_text.delete(1.0, tk.END)
             self.response_text.insert(1.0, response_text)
             
@@ -995,6 +1351,9 @@ class RestClientGUI:
             # Find the end of the first line (status line)
             status_line_end = "1.0 lineend"
             self.response_text.tag_add(status_tag, status_line_start, status_line_end)
+            
+            # Populate TreeView (ResponseTree tab)
+            self.populate_response_tree(response)
             
             # Check for 401 errors and provide diagnostics
             if response.status_code == 401:
@@ -1043,12 +1402,17 @@ class RestClientGUI:
                         if self.parser:
                             self.parser.variables['graph_token'] = new_token
                             
+                            # CRITICAL: Update all endpoints with the new token
+                            # This re-substitutes {{graph_token}} in URLs, headers, and bodies
+                            logger.info("Updating all endpoints with new token")
+                            self.update_endpoints_with_variable('graph_token', new_token)
+                            
                             # Update the token in the HTTP file
                             if self.update_graph_token_in_file(new_token):
                                 # Refresh the Variables tab to show updated token in green
                                 self.populate_variables_tab()
                                 # Show success message
-                                self.status_var.set(f"Status: {response.status_code} {response.reason} - Token updated in file!")
+                                self.status_var.set(f"Status: {response.status_code} {response.reason} - Token updated in file and all endpoints!")
                                 self.update_status_bar_color(response.status_code)
                             else:
                                 # Update in memory only if file update failed
@@ -1100,8 +1464,8 @@ class RestClientGUI:
         finally:
             self.run_button.config(state='normal')
     
-    def format_response(self, response: requests.Response) -> str:
-        """Format HTTP response for display."""
+    def format_response_raw(self, response: requests.Response) -> str:
+        """Format HTTP response as raw JSON text for the Response tab."""
         lines = []
         
         # Status line
@@ -1119,13 +1483,31 @@ class RestClientGUI:
         try:
             # Try to format as JSON
             json_data = response.json()
-            formatted_json = json.dumps(json_data, indent=2)
-            lines.append(formatted_json)
+            
+            # Count items if it's an array
+            if isinstance(json_data, list):
+                item_count = len(json_data)
+                lines.append(f"📊 Total items: {item_count}\n\n")
+            elif isinstance(json_data, dict):
+                # Check if it's a dict with a common array key
+                for key in ['data', 'items', 'results', 'users', 'courses', 'events']:
+                    if key in json_data and isinstance(json_data[key], list):
+                        item_count = len(json_data[key])
+                        lines.append(f"📊 Total {key}: {item_count}\n\n")
+                        break
+            
+            # Format JSON with pretty printing (no collapse markers)
+            json_text = json.dumps(json_data, indent=2, ensure_ascii=False)
+            lines.append(json_text)
         except (json.JSONDecodeError, ValueError):
             # Not JSON, display as text
             lines.append(response.text)
         
         return ''.join(lines)
+    
+    def format_response(self, response: requests.Response) -> str:
+        """Format HTTP response for display (legacy method, kept for compatibility)."""
+        return self.format_response_raw(response)
     
     def get_status_tag(self, status_code: int) -> str:
         """Get the appropriate tag name for a status code."""
